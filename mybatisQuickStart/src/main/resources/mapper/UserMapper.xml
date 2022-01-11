@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mappper 标签：映射关系 -->
+<mapper namespace="user">
+    <!-- select 查询操作
+        statementId:作为找到 sql 语句的唯一标识，组成为：namespace.id
+        resultType : 执行sql语句返回的结果封装的实体类
+    -->
+    <select id="findAll" resultType="user">
+        select * from user
+    </select>
+
+    <!-- insert 插入操作
+        parameterType: 参数类型
+        #{} 相当于 占位符 ？
+        #{} 中添加 parameterType 中的字段名称（属性名）
+        填充sql 语句的时候，会调用 get 方法获取参数的值
+    -->
+    <insert id="saveUser" parameterType="com.zxz.pojo.User">
+        insert into user(username,birthday,sex,address) values(#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+    <!--   更新用户信息     -->
+    <update id="updateUser" parameterType="com.zxz.pojo.User">
+        update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id=#{id}
+    </update>
+
+    <!--  删除用户
+        - 当参数只有一个的时候且类型为String或Integer等基本数据类型时，
+          #{ } 中的名称可以随便写，因为只有一个，所以不论些什么都可以匹配到。
+    -->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where id=#{id}
+    </delete>
+
+</mapper>

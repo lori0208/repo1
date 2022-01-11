@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 加载 properties 配置文件   -->
+    <properties resource="jdbc.properties"></properties>
+    <!--  类型别名  -->
+    <typeAliases>
+        <!-- 方式一：给单个实体类起别名 type：路径 ，alias ：别名     -->
+        <!--<typeAlias type="com.zxz.pojo.User" alias="user"></typeAlias>-->
+        <!-- 方式二：给包下的文件起别名，别名为实体类的类名，且不区分大小写  （推荐使用）-->
+        <package name="com.zxz.pojo"/>
+    </typeAliases>
+
+    <!--  环境配置： default 默认选择的环境 -->
+    <environments default="development">
+        <!--   开发环境     -->
+        <environment id="development">
+            <!-- 使用JDBC类型事务管理器 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- 数据源： type="POOLED" ：使用数据库连接池  type="UNPLOOED" ：不使用数据库连接池 -->
+            <dataSource type="POOLED">
+                <!--  配置数据源 -->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+        <!--   测试环境     -->
+        <environment id="test">
+            <transactionManager type=""></transactionManager>
+            <dataSource type=""></dataSource>
+        </environment>
+    </environments>
+
+    <!--加载映射配置-->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml" ></mapper>
+    </mappers>
+
+</configuration>
